@@ -7,15 +7,15 @@ software or the related documents without Intel's prior written permission.
 This software and the related documents are provided as is, with no express or implied warranties,
 other than those that are expressly stated in the License.
 
-# CustomCalibration
+# Intel® RealSense™ CustomCalibration
 
-v2.11.1.0
+Taken from DynamicCalibrationAPI-Linux-2.11.1.0
 
-     Contains sources for a working example for calibrating depth/RGB with user custom algorithms.
-     For details, please refer to the white paper:
-       Intel® RealSense™ Depth Module D400 Series Custom Calibration
-   which is available on Intel® RealSense™ product website:
-       https://www.intel.com/content/www/us/en/support/articles/000026725/emerging-technologies/intel-realsense-technology.html
+Contains sources for a working example for calibrating depth/RGB with user custom algorithms.
+For details, please refer to the white paper:
+  Intel® RealSense™ Depth Module D400 Series Custom Calibration
+  which is available on Intel® RealSense™ product website:
+      https://www.intel.com/content/www/us/en/support/articles/000026725/emerging-technologies/intel-realsense-technology.html
 
 Dependencies
 ------------
@@ -27,11 +27,6 @@ Dependencies
      on Intel platforms (Ubuntu 16.04 and Ubuntu 18.04), librealsense2-dev prebuilt package is available, see link below
      https://github.com/IntelRealSense/librealsense/blob/master/doc/distribution_linux.md
      sudo apt-get install librealsense2-dev
-
-     on ARM  platforms (Ubuntu 16.04 and Ubuntu 18.04), no prebuilt librealsense package is available, please download
-     librealsense source code and build locally, and then point LIBRS_LIBRARY_DIR and LIBRS_INCLUDE_DIR to your local
-     folders where librealsense library and header files are located, for example,
-     sudo cmake .. -DLIBRS_LIBRARY_DIR=~/Downloads/librealsense-2.23.0/build -DLIBRS_INCLUDE_DIR=~/Downloads/librealsense-2.23.0/include
 
   2) libusb-1.0
      sudo apt-get install libusb-dev libusb-1.0-0-dev
@@ -46,3 +41,11 @@ Dependencies
 
      Install libpng on Ubuntu 18.04
      sudo apt-get install libpng-dev
+
+Compilation
+-----------
+1. $ cd realsense-calibration
+2. $ mkdir build/ && cd build
+3. $ cmake ..
+4. $ make
+
