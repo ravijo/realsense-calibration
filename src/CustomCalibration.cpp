@@ -30,7 +30,7 @@ bool DetectChessboard(const Mat& image, const Size& chessboardSize, vector<Point
 		return false;
 
 	// Refine them
-	cornerSubPix(image, corners, Size(11, 11), Size(-1, -1), TermCriteria(CV_TERMCRIT_EPS | CV_TERMCRIT_ITER, 30, 0.1));
+	cornerSubPix(image, corners, Size(11, 11), Size(-1, -1), TermCriteria(TermCriteria::EPS | TermCriteria::MAX_ITER, 30, 0.1));
 	return true;
 }
 
@@ -57,11 +57,11 @@ double CalibrateDepthCamera(const vector<vector<Point2f> >& cornersLeft, const v
 	CreateCorners3D(chessboardSize, checkerSize, cornersLeft.size(), corners3D);
 
 	// Calibrate each camera individualy
-	calibrateCamera(corners3D, cornersLeft, imageSizeLR, Kl, Dl, noArray(), noArray(), CV_CALIB_FIX_ASPECT_RATIO, TermCriteria(TermCriteria::COUNT + TermCriteria::EPS, 60, DBL_EPSILON));
-	calibrateCamera(corners3D, cornersRight, imageSizeLR, Kr, Dr, noArray(), noArray(), CV_CALIB_FIX_ASPECT_RATIO, TermCriteria(TermCriteria::COUNT + TermCriteria::EPS, 60, DBL_EPSILON));
+	calibrateCamera(corners3D, cornersLeft, imageSizeLR, Kl, Dl, noArray(), noArray(), CALIB_FIX_ASPECT_RATIO, TermCriteria(TermCriteria::COUNT + TermCriteria::EPS, 60, DBL_EPSILON));
+	calibrateCamera(corners3D, cornersRight, imageSizeLR, Kr, Dr, noArray(), noArray(), CALIB_FIX_ASPECT_RATIO, TermCriteria(TermCriteria::COUNT + TermCriteria::EPS, 60, DBL_EPSILON));
 
 	// Calibrate the extrinsics between them
-	return stereoCalibrate(corners3D, cornersLeft, cornersRight, Kl, Dl, Kr, Dr, Size(-1, -1), Rlr, Tlr, noArray(), noArray(), CV_CALIB_FIX_INTRINSIC | CV_CALIB_USE_INTRINSIC_GUESS, TermCriteria(TermCriteria::COUNT + TermCriteria::EPS, 300, DBL_EPSILON));
+	return stereoCalibrate(corners3D, cornersLeft, cornersRight, Kl, Dl, Kr, Dr, Size(-1, -1), Rlr, Tlr, noArray(), noArray(), CALIB_FIX_INTRINSIC | CALIB_USE_INTRINSIC_GUESS, TermCriteria(TermCriteria::COUNT + TermCriteria::EPS, 300, DBL_EPSILON));
 }
 
 double CalibrateRGBCamera(const vector<vector<Point2f> >& cornersLeft, const vector<vector<Point2f> >& cornersRGB, const Size& chessboardSize, float checkerSize, const Size& imageSizeRGB, const Mat& Kl, const Mat& Dl, Mat& Kc, Mat& Dc, Mat& Rlc, Mat& Tlc)
@@ -74,9 +74,9 @@ double CalibrateRGBCamera(const vector<vector<Point2f> >& cornersLeft, const vec
 	CreateCorners3D(chessboardSize, checkerSize, cornersLeft.size(), corners3D);
 
 	// Calibrate RGB camera
-	calibrateCamera(corners3D, cornersRGB, imageSizeRGB, Kc, Dc, noArray(), noArray(), CV_CALIB_FIX_ASPECT_RATIO, TermCriteria(TermCriteria::COUNT + TermCriteria::EPS, 60, DBL_EPSILON));
+	calibrateCamera(corners3D, cornersRGB, imageSizeRGB, Kc, Dc, noArray(), noArray(), CALIB_FIX_ASPECT_RATIO, TermCriteria(TermCriteria::COUNT + TermCriteria::EPS, 60, DBL_EPSILON));
 
 	// Calibrate the extrinsics between them
-	return stereoCalibrate(corners3D, cornersLeft, cornersRGB, Kl, Dl, Kc, Dc, Size(-1, -1), Rlc, Tlc, noArray(), noArray(), CV_CALIB_FIX_INTRINSIC | CV_CALIB_USE_INTRINSIC_GUESS, TermCriteria(TermCriteria::COUNT + TermCriteria::EPS, 300, DBL_EPSILON));
+	return stereoCalibrate(corners3D, cornersLeft, cornersRGB, Kl, Dl, Kc, Dc, Size(-1, -1), Rlc, Tlc, noArray(), noArray(), CALIB_FIX_INTRINSIC | CALIB_USE_INTRINSIC_GUESS, TermCriteria(TermCriteria::COUNT + TermCriteria::EPS, 300, DBL_EPSILON));
 }
 
