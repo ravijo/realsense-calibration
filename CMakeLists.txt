@@ -2,8 +2,7 @@ cmake_minimum_required(VERSION 3.16.0 FATAL_ERROR)
 
 project(CustomCalibrationTest)
 
-set(CUSTOM_OPENCV_DIR /home/ravi/tools/opencv-3.3.1/release)
-find_package(OpenCV REQUIRED PATHS ${CUSTOM_OPENCV_DIR} NO_DEFAULT_PATH)
+find_package(OpenCV REQUIRED)
 
 find_package(OpenGL REQUIRED)
 find_package(GLUT REQUIRED)
